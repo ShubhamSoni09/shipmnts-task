@@ -1,54 +1,69 @@
 import { useState } from 'react';
-import logo from './logo.svg';
+import { Typography, Box, makeStyles } from '@material-ui/core';
 import './App.css';
-import {Typography,makeStyles, Box} from '@material-ui/core'
-import Balance from './components/balance.jsx'
-import ExpenseCard from './components/ExpenseCard.jsx'
-import NewTransaction from './components/NewTransactions.jsx'
-import Transactions from './components/Transactions.jsx'
-import Transaction from './components/Transaction.jsx'
+import Balance from './components/Balance';
+import ExpenseCard from './components/ExpenseCard';
+import Transactions from './components/Transactions';
+import NewTransaction from './components/NewTransaction';
+import { useEffect } from 'react';
 
-const useStyles = makeStyles({
-  header: { 
-    color:"blue",
-    fontSize:"50px",
-    margin: "10px 0",
-    textTransform: "uppercase"
+const useStyle = makeStyles({
+  header: {
+    margin: '10px 0',
+  	color: 'blue',
+	  fontSize: 36,
+	  textTransform: 'uppercase',
   },
-  component:{
-    background:'#FFF',
+  component: {
+    background: '#FFF',
+    padding: 10,
+    borderRadius: 20,
+    display: 'flex',
     width: 800,
-    padding: '10px',
-    borderRadius: '10px',
-    display: 'flex'
-  },
-  '& > *':{
-    width:'50%;',
-    padding:10,
-    height:'70vh'
+    '& > *': {
+      padding: 10,
+      width: '50%',
+      height: '70vh'
+    }
   }
 })
-function App() {
-  const classes = useStyles();
 
-  const [transactions,setTransaction] = useState([
-    {id:1,text:'Pizza',amount:-20},
-    {id:2,text:'Salary',amount:3000},
-    {id:3,text:'Book',amount:-150},
-    {id:4,text:'Performance Bonus',amount:1500},
-  ])
+function App() {
+  const classes = useStyle();
+
+  const [transactions, setTransactions] = useState([
+    { id: 1, text: 'Momos', amount: -20},
+    { id: 2, text: 'Salary', amount: 3000},
+    { id: 3, text: 'Book', amount: -100},
+    { id: 4, text: 'Bonus', amount: 1500 },
+  ]);
+
+  const deleteTransaction = (id) => {
+    console.log(id);
+    setTransactions(transactions.filter(transaction => transaction.id !== id));
+    console.log(transactions);
+  }
+
+  const addTransaction = (transaction) => {
+    setTransactions(transactions => [transaction, ...transactions]);
+    console.log(transaction);
+    console.log(transactions);
+  }
+
+
   return (
     <div className="App">
       <Typography className={classes.header}>Expense Tracker</Typography>
       <Box className={classes.component}>
-      <Box>
-        <Balance></Balance>
-        <ExpenseCard></ExpenseCard>
-        <NewTransaction></NewTransaction>
+        <Box>
+          <Balance transactions={transactions} />
+          <ExpenseCard transactions={transactions} />
+          <NewTransaction addTransaction={addTransaction}/>
+        </Box>
+        <Box>
+          <Transactions transactions={transactions} deleteTransaction={deleteTransaction}/>
+        </Box>
       </Box>
-      <Transactions transactions={transactions}></Transactions>
-      </Box>
-     
     </div>
   );
 }

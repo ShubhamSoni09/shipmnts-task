@@ -1,19 +1,29 @@
-import { ListItem,ListItemText,makeStyles } from "@material-ui/core";
+import { ListItem,ListItemText,makeStyles,List,ListItemIcon } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete"
 
 
 const useStyle = makeStyles ({
     list:{
-        marginTop:10
+        marginTop:10,
+        display:'flex',
+        border:'1px solid #F6F6F6'
     }
 })
 
-const Transaction = ({transaction}) => {
+const Transaction = ({transaction,deleteTransaction}) => {
+    const sign = transaction.amount >= 0 ? '₹' : '-₹';
+    const amount = sign + Math.abs(transaction.amount);
+    const color = transaction.amount >=0 ? 'Green' : 'Red';
     const classes = useStyle();
+    
     return (
-       <ListItem classes = {classes.list}>
-           <ListItemText primary={transaction.text}/>
-           <ListItemText primary={transaction.amount}/>
-       </ListItem>
+        <ListItem style={{background: `${color}`, color: '#fff'}} className={classes.list}>
+            <ListItemIcon>
+              <DeleteIcon onClick={() => deleteTransaction(transaction.id)} />
+            </ListItemIcon>
+            <ListItemText primary={transaction.text} />
+            <ListItemText primary={amount} />
+        </ListItem>
     )
 }
 
