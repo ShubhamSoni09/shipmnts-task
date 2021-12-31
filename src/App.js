@@ -6,6 +6,7 @@ import Balance from './components/balance.jsx'
 import ExpenseCard from './components/ExpenseCard.jsx'
 import NewTransaction from './components/NewTransactions.jsx'
 import Transactions from './components/Transactions.jsx'
+import Transaction from './components/Transaction.jsx'
 
 const useStyles = makeStyles({
   header: { 

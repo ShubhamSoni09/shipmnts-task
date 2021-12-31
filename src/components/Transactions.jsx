@@ -1,4 +1,5 @@
 import {Box,Typography,Divider,makeStyles,List} from '@material-ui/core'
+import Transaction from './Transaction'
 
 const useStyle = makeStyles ({
     component: {
@@ -16,7 +17,7 @@ const Transactions = ({transactions}) =>{
             <List>
                 {
                     transactions.map(transaction =>{
-                        return console.log(transaction);
+                        return <Transaction></Transaction>
                     })
                 }
             </List>
