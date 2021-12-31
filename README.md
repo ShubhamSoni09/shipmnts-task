@@ -1,3 +1,11 @@
+This repository needs to be clonned before running it on your PC. 
+
+1. Unzip the folder and to start with running the project, firstly all the packages of react needs to be downloaded.
+
+2. Use the following commands to install material-ui - core and icons: npx i '@material-ui/core', npx i '@material-ui/icons'
+
+3. Run 'npm start' and select the port to run the application on.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
