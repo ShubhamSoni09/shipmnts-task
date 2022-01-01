@@ -32,7 +32,7 @@ function App() {
   const classes = useStyle();
 
   const [transactions, setTransactions] = useState([
-    { id: 1, text: 'Momos', amount: -20},
+    { id: 1, text: 'Pizza', amount: -20},
     { id: 2, text: 'Salary', amount: 3000},
     { id: 3, text: 'Book', amount: -100},
     { id: 4, text: 'Bonus', amount: 1500 },
