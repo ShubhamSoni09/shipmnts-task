@@ -53,7 +53,10 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let token;
-    
+    // console.log(req.data)
+    // console.log(req.body);
+    // console.log(req.body.logEmail);
+    // console.log(req.body.logPass);
     if (!req.body.logEmail || !req.body.logPass) {
       return res
         .status(400)
@@ -66,16 +69,18 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ message: "Email-Id Not Recognized Please SignUp With Us" });
     } else {
-      
+      // console.log("User Does Exist..!!", userLogin.emailId);
       const userLogPass = await bcrypt.compare(
         req.body.logPass,
         userLogin.password
       );
-      
+      // res.header('Access-Control-Allow-Origin', "*");
+      // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      // res.header('Access-Control-Allow-Credentials', true);
       if (userLogin && userLogPass) {
         token = await userLogin.generateAuthToken();
         console.log("Server is getting token", token);
-        res.cookie("UserToken", token, {
+        res.cookie("stgUserToken", token, {
           expires: new Date(Date.now() + 25892000000),
           httpOnly: true,
         });
@@ -85,7 +90,7 @@ router.post("/login", async (req, res) => {
           .status(200)
           .json({ message: `Login SuccessFull..!!`, id: userLogin._id });
       } else {
-        
+        // console.log("PassWord Entered is", userLogPass);
         return res.status(400).json({ message: "InCorrect Password" });
       }
     }
@@ -142,7 +147,7 @@ router.get("/main", AuthMid, (req, res) => {
 
 router.get("/logout", (req, res) => {
   console.log("loging out initiated");
-  res.clearCookie("UserToken", { path: "/" });
+  res.clearCookie("stgUserToken", { path: "/" });
   res.status(200).send("User LoggedOut");
 });
 module.exports = router;
